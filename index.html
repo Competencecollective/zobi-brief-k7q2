@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zobi — what it adds for the brands that use it most</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap" rel="stylesheet">
+<style>
+  :root { --paper: #f3efe6; --ink: #1c1915; --muted: #6f685c; --line: #ddd4c6; --card: #fbf8f2; --green: #1d6b42; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "IBM Plex Sans", "Segoe UI", sans-serif; font-size: 15.5px; line-height: 1.45; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 32px 24px 72px; }
+  header { display: flex; justify-content: space-between; align-items: baseline; padding-bottom: 12px; border-bottom: 1px solid var(--ink); }
+  .mark { font-weight: 600; letter-spacing: 0.16em; font-size: 13px; }
+  .meta { color: var(--muted); font-size: 13px; }
+  h1 { font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 48px; line-height: 1.02; letter-spacing: -0.025em; margin: 30px 0 14px; max-width: 18ch; }
+  .deck { margin: 0 0 10px; max-width: 44em; font-size: 18px; }
+  .what { margin: 0 0 26px; max-width: 44em; color: var(--muted); }
+  .stats { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+  .stat { padding: 16px 16px 14px 0; }
+  .stat + .stat { padding-left: 16px; border-left: 1px solid var(--line); }
+  .stat b { display: block; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 32px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+  .stat span { color: var(--muted); font-size: 12.5px; }
+  h2 { font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 27px; letter-spacing: -0.015em; margin: 44px 0 6px; }
+  .note { color: var(--muted); font-size: 13.5px; margin: 0 0 14px; max-width: 80ch; }
+  .chart-card { background: var(--card); border: 1px solid var(--line); padding: 10px 10px 2px; }
+  svg.chart { width: 100%; height: auto; display: block; }
+  .grid { stroke: var(--line); }
+  .vline { stroke: #cfc6b6; stroke-dasharray: 3 3; }
+  .axis { fill: var(--muted); font-size: 11px; font-family: "IBM Plex Sans", sans-serif; }
+  .area { fill: #1d6b42; opacity: 0.14; }
+  .line { fill: none; stroke: #1d6b42; stroke-width: 1.75; }
+  .card { background: var(--card); border: 1px solid var(--line); padding: 14px 14px 12px; }
+  .card em { font-style: normal; display: block; color: var(--muted); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; }
+  .card strong { display: block; font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 24px; letter-spacing: -0.01em; }
+  .card span { color: var(--muted); font-size: 13px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; color: var(--muted); margin-bottom: 8px; }
+  .legend b { color: var(--ink); font-weight: 500; }
+  .sw { display: inline-block; width: 9px; height: 9px; margin-right: 6px; vertical-align: middle; }
+  .bar { display: flex; height: 18px; background: var(--line); margin-bottom: 14px; }
+  .bar i { display: block; height: 100%; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .scale { display: grid; grid-template-columns: 1.1fr 1fr; gap: 28px; align-items: start; }
+  .scale p { margin: 0 0 12px; }
+  .big { font-family: Newsreader, Georgia, serif; font-weight: 500; font-size: 40px; letter-spacing: -0.02em; line-height: 1; margin: 6px 0 4px; }
+  .bands { display: grid; gap: 10px; }
+  .scroller { overflow-x: auto; }
+  table { width: 100%; min-width: 760px; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 13.5px; }
+  th { text-align: right; font-size: 11px; font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding: 8px 8px 8px 0; border-bottom: 1px solid var(--ink); white-space: nowrap; }
+  th:first-child { text-align: left; }
+  td { padding: 10px 8px 10px 0; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  td.rank { text-align: left; color: var(--muted); width: 40px; }
+  td.rev { color: var(--green); font-weight: 500; }
+  .dim { color: #b7ae9f; }
+  ol { margin: 8px 0 0; padding-left: 20px; }
+  li { margin: 0 0 10px; }
+  .cta { margin-top: 22px; padding: 18px 20px; border: 1px solid var(--ink); font-size: 17px; max-width: 48em; }
+  footer { margin-top: 32px; padding-top: 12px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12.5px; max-width: 90ch; }
+  @media (max-width: 820px) {
+    h1 { font-size: 34px; }
+    .stats { grid-template-columns: 1fr 1fr; }
+    .stat + .stat { border-left: 0; }
+    .stat:nth-child(odd) { padding-left: 0; }
+    .two, .scale { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="mark">ZOBI</div>
+    <div class="meta">October 2026</div>
+  </header>
+
+  <h1>$15M in Shopify orders in 30 days.</h1>
+  <p class="deck">Across more than 450 brands. The top 30 account for $9.0M of it. Where we can see a store’s whole month, Zobi added between 1% and 11% on top of what the store sold. The middle brand got 4.7%.</p>
+  <p class="what">Zobi texts your shoppers one to one and answers them. The two conversations that make money: the person who left a checkout, and the person who just bought. Every dollar on this page is a Shopify order that came out of one of those conversations, 24 September to 24 October 2026.</p>
+
+  <section class="stats">
+    <div class="stat"><b>$15.3M</b><span>Added across all brands, 30 days</span></div>
+    <div class="stat"><b>217,000</b><span>Orders · $71 average</span></div>
+    <div class="stat"><b>$3.03</b><span>Per shopper texted</span></div>
+    <div class="stat"><b>2.4%</b><span>Opted out</span></div>
+  </section>
+
+  <h2>Revenue added, every day</h2>
+  <p class="note">All brands, late July through 23 October. August was $2.6M. September was $8.9M. The first 23 days of October were $11.5M.</p>
+  <div class="chart-card">
+    <svg class="chart" viewBox="0 0 920 230" role="img" aria-label="Daily revenue added by Zobi across all brands, July to October 2026.">
+      <line x1="50" y1="200.0" x2="908" y2="200.0" class="grid"/><text x="42" y="204.0" text-anchor="end" class="axis">$0</text><line x1="50" y1="139.3" x2="908" y2="139.3" class="grid"/><text x="42" y="143.3" text-anchor="end" class="axis">$200k</text><line x1="50" y1="78.7" x2="908" y2="78.7" class="grid"/><text x="42" y="82.7" text-anchor="end" class="axis">$400k</text><line x1="50" y1="18.0" x2="908" y2="18.0" class="grid"/><text x="42" y="22.0" text-anchor="end" class="axis">$600k</text><line x1="107.8" y1="18" x2="107.8" y2="200.0" class="vline"/><text x="112.8" y="221" class="axis">August</text><line x1="406.7" y1="18" x2="406.7" y2="200.0" class="vline"/><text x="411.7" y="221" class="axis">September</text><line x1="695.9" y1="18" x2="695.9" y2="200.0" class="vline"/><text x="700.9" y="221" class="axis">October</text>
+      <polygon points="50.0,200.0 50.0,191.2 59.6,191.2 69.3,193.3 78.9,191.4 88.6,191.8 98.2,191.2 107.8,193.0 117.5,189.0 127.1,189.2 136.8,187.2 146.4,189.3 156.0,189.4 165.7,187.0 175.3,186.4 185.0,182.5 194.6,179.7 204.2,178.9 213.9,177.3 223.5,180.1 233.2,178.8 242.8,177.0 252.4,177.1 262.1,177.2 271.7,180.7 281.4,183.2 291.0,175.7 300.7,177.7 310.3,174.2 319.9,165.3 329.6,161.4 339.2,157.6 348.9,163.3 358.5,162.8 368.1,152.8 377.8,151.4 387.4,147.2 397.1,143.5 406.7,146.1 416.3,153.4 426.0,151.1 435.6,153.8 445.3,153.7 454.9,154.0 464.5,129.9 474.2,138.3 483.8,146.4 493.5,152.7 503.1,146.8 512.7,140.6 522.4,131.2 532.0,126.0 541.7,99.3 551.3,100.6 560.9,103.2 570.6,108.4 580.2,101.0 589.9,103.5 599.5,101.5 609.1,92.8 618.8,87.0 628.4,78.0 638.1,73.3 647.7,47.4 657.3,37.2 667.0,48.4 676.6,57.1 686.3,45.5 695.9,30.5 705.6,44.2 715.2,40.5 724.8,43.7 734.5,56.1 744.1,29.6 753.8,19.8 763.4,32.5 773.0,45.0 782.7,42.6 792.3,23.2 802.0,34.0 811.6,40.9 821.2,39.0 830.9,53.4 840.5,46.5 850.2,57.3 859.8,64.6 869.4,72.4 879.1,80.1 888.7,77.7 898.4,80.5 908.0,50.2 908.0,200.0" class="area"/>
+      <polyline points="50.0,191.2 59.6,191.2 69.3,193.3 78.9,191.4 88.6,191.8 98.2,191.2 107.8,193.0 117.5,189.0 127.1,189.2 136.8,187.2 146.4,189.3 156.0,189.4 165.7,187.0 175.3,186.4 185.0,182.5 194.6,179.7 204.2,178.9 213.9,177.3 223.5,180.1 233.2,178.8 242.8,177.0 252.4,177.1 262.1,177.2 271.7,180.7 281.4,183.2 291.0,175.7 300.7,177.7 310.3,174.2 319.9,165.3 329.6,161.4 339.2,157.6 348.9,163.3 358.5,162.8 368.1,152.8 377.8,151.4 387.4,147.2 397.1,143.5 406.7,146.1 416.3,153.4 426.0,151.1 435.6,153.8 445.3,153.7 454.9,154.0 464.5,129.9 474.2,138.3 483.8,146.4 493.5,152.7 503.1,146.8 512.7,140.6 522.4,131.2 532.0,126.0 541.7,99.3 551.3,100.6 560.9,103.2 570.6,108.4 580.2,101.0 589.9,103.5 599.5,101.5 609.1,92.8 618.8,87.0 628.4,78.0 638.1,73.3 647.7,47.4 657.3,37.2 667.0,48.4 676.6,57.1 686.3,45.5 695.9,30.5 705.6,44.2 715.2,40.5 724.8,43.7 734.5,56.1 744.1,29.6 753.8,19.8 763.4,32.5 773.0,45.0 782.7,42.6 792.3,23.2 802.0,34.0 811.6,40.9 821.2,39.0 830.9,53.4 840.5,46.5 850.2,57.3 859.8,64.6 869.4,72.4 879.1,80.1 888.7,77.7 898.4,80.5 908.0,50.2" class="line"/>
+    </svg>
+  </div>
+
+  <h2>Where the money comes from</h2>
+  <div class="legend">
+    <span><i class="sw" style="background:#1d6b42"></i><b>Left a checkout · $10.8M</b> · 71%</span>
+    <span><i class="sw" style="background:#b9c4ae"></i><b>Just bought · $4.1M</b> · 27%</span>
+    <span><i class="sw" style="background:#d8d0c4"></i><b>Billing, win-back, pop-ups</b> · 3%</span>
+  </div>
+  <div class="bar" aria-hidden="true"><i style="background:#1d6b42;width:70.91%"></i><i style="background:#b9c4ae;width:26.58%"></i><i style="background:#d8d0c4;width:2.51%"></i></div>
+  <div class="two">
+    <div class="card">
+      <em>Left a checkout</em>
+      <strong>$4.33 per shopper texted</strong>
+      <span>5.8% of the shoppers we text come back and order · $75 average order.</span>
+    </div>
+    <div class="card">
+      <em>Just bought</em>
+      <strong>$2.25 per customer texted</strong>
+      <span>Upsells, refills, and the second item they did not add the first time.</span>
+    </div>
+  </div>
+
+  <h2>What this looks like at your size</h2>
+  <div class="scale">
+    <div>
+      <p>For 20 of the top 30 we can line Zobi’s number up against the store’s own 30-day sales. Zobi added between <b>1% and 11%</b> on top. The middle brand got <b>4.7%</b>.</p>
+      <p>On a store doing $100 million a year, the middle result is:</p>
+      <div class="big">$4.7 million a year</div>
+      <p class="note">The range on the same store is $1.5 million to $11.3 million. The largest brands on Zobi each clear $1 million a month from it.</p>
+    </div>
+    <div class="bands">
+      <div class="card"><em>Top quarter of brands</em><strong>8% to 11% of store sales</strong><span>Five of the twenty.</span></div>
+      <div class="card"><em>Middle</em><strong>4% to 8%</strong><span>Ten of the twenty.</span></div>
+      <div class="card"><em>Bottom quarter</em><strong>1.5% to 4%</strong><span>Five of the twenty.</span></div>
+    </div>
+  </div>
+
+  <h2>The top 30</h2>
+  <p class="note">Ranked by revenue added, 24 September to 24 October. Brands are not named here; we walk through any of them on a call. “Left a checkout” and “just bought” are the two conversation types. Share of store is shown where the store’s whole month is visible to us.</p>
+  <div class="scroller">
+  <table>
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Revenue added</th>
+        <th>Orders</th>
+        <th>Avg order</th>
+        <th>Left a checkout</th>
+        <th>Just bought</th>
+        <th>Per shopper texted</th>
+        <th>Share of store</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      <td class="rank">1</td>
+      <td class="num rev">$1,125k</td>
+      <td class="num">4,710</td>
+      <td class="num">$239</td>
+      <td class="num">$626k</td>
+      <td class="num">$498k</td>
+      <td class="num">$5.01</td>
+      <td class="num"><span class="dim">—</span></td>
+    </tr><tr>
+      <td class="rank">2</td>
+      <td class="num rev">$1,120k</td>
+      <td class="num">7,330</td>
+      <td class="num">$153</td>
+      <td class="num">$928k</td>
+      <td class="num">$192k</td>
+      <td class="num">$12.76</td>
+      <td class="num"><span class="dim">—</span></td>
+    </tr><tr>
+      <td class="rank">3</td>
+      <td class="num rev">$941k</td>
+      <td class="num">21,330</td>
+      <td class="num">$44</td>
+      <td class="num">$785k</td>
+      <td class="num">$112k</td>
+      <td class="num">$1.66</td>
+      <td class="num"><span class="dim">—</span></td>
+    </tr><tr>
+      <td class="rank">4</td>
+      <td class="num rev">$564k</td>
+      <td class="num">7,290</td>
+      <td class="num">$77</td>
+      <td class="num">$428k</td>
+      <td class="num">$136k</td>
+      <td class="num">$5.45</td>
+      <td class="num">8.3%</td>
+    </tr><tr>
+      <td class="rank">5</td>
+      <td class="num rev">$500k</td>
+      <td class="num">3,150</td>
+      <td class="num">$159</td>
+      <td class="num">$355k</td>
+      <td class="num">$139k</td>
+      <td class="num">$5.81</td>
+      <td class="num">9.4%</td>
+    </tr><tr>
+      <td class="rank">6</td>
+      <td class="num rev">$345k</td>
+      <td class="num">3,640</td>
+      <td class="num">$95</td>
+      <td class="num">$269k</td>
+      <td class="num">$75k</td>
+      <td class="num">$4.08</td>
+      <td class="num">5.2%</td>
+    </tr><tr>
+      <td class="rank">7</td>
+      <td class="num rev">$333k</td>
+      <td class="num">5,470</td>
+      <td class="num">$61</td>
+      <td class="num">$129k</td>
+      <td class="num">$186k</td>
+      <td class="num">$2.92</td>
+      <td class="num"><span class="dim">—</span></td>
+    </tr><tr>
+      <td class="rank">8</td>
+      <td class="num rev">$331k</td>
+      <td class="num">1,590</td>
+      <td class="num">$208</td>
+      <td class="num">$239k</td>
+      <td class="num">$74k</td>
+      <td class="num">$10.95</td>
+      <td class="num">9.5%</td>
+    </tr><tr>
+      <td class="rank">9</td>
+      <td class="num rev">$286k</td>
+      <td class="num">4,400</td>
+      <td class="num">$65</td>
+      <td class="num">$200k</td>
+      <td class="num">$67k</td>
+      <td class="num">$3.42</td>
+      <td class="num">5.9%</td>
+    </tr><tr>
+      <td class="rank">10</td>
+      <td class="num rev">$267k</td>
+      <td class="num">5,490</td>
+      <td class="num">$49</td>
+      <td class="num">$169k</td>
+      <td class="num">$98k</td>
+      <td class="num">$1.11</td>
+      <td class="num"><span class="dim">—</span></td>
+    </tr><tr>
+      <td class="rank">11</td>
+      <td class="num rev">$234k</td>
+      <td class="num">4,060</td>
+      <td class="num">$58</td>
+      <td class="num">$181k</td>
+      <td class="num">$48k</td>
+      <td class="num">$1.56</td>
+      <td class="num"><span class="dim">—</span></td>
+    </tr><tr>
+      <td class="rank">12</td>
+      <td class="num rev">$231k</td>
+      <td class="num">4,260</td>
+      <td class="num">$54</td>
+      <td class="num">$177k</td>
+      <td class="num">$49k</td>
+      <td class="num">$4.52</td>
+      <td class="num">4.1%</td>
+    </tr><tr>
+      <td class="rank">13</td>
+      <td class="num rev">$202k</td>
+      <td class="num">3,130</td>
+      <td class="num">$64</td>
+      <td class="num">$128k</td>
+      <td class="num">$70k</td>
+      <td class="num">$3.60</td>
+      <td class="num">4.1%</td>
+    </tr><tr>
+      <td class="rank">14</td>
+      <td class="num rev">$197k</td>
+      <td class="num">1,420</td>
+      <td class="num">$138</td>
+      <td class="num">$150k</td>
+      <td class="num">$46k</td>
+      <td class="num">$12.18</td>
+      <td class="num">5.8%</td>
+    </tr><tr>
+      <td class="rank">15</td>
+      <td class="num rev">$191k</td>
+      <td class="num">4,410</td>
+      <td class="num">$43</td>
+      <td class="num">$144k</td>
+      <td class="num">$47k</td>
+      <td class="num">$2.22</td>
+      <td class="num">4.7%</td>
+    </tr><tr>
+      <td class="rank">16</td>
+      <td class="num rev">$187k</td>
+      <td class="num">4,230</td>
+      <td class="num">$44</td>
+      <td class="num">$113k</td>
+      <td class="num">$70k</td>
+      <td class="num">$2.99</td>
+      <td class="num">4.7%</td>
+    </tr><tr>
+      <td class="rank">17</td>
+      <td class="num rev">$183k</td>
+      <td class="num">1,620</td>
+      <td class="num">$113</td>
+      <td class="num">$129k</td>
+      <td class="num">$50k</td>
+      <td class="num">$2.51</td>
+      <td class="num">2.7%</td>
+    </tr><tr>
+      <td class="rank">18</td>
+      <td class="num rev">$167k</td>
+      <td class="num">3,180</td>
+      <td class="num">$52</td>
+      <td class="num">$111k</td>
+      <td class="num">$54k</td>
+      <td class="num">$2.50</td>
+      <td class="num">3.9%</td>
+    </tr><tr>
+      <td class="rank">19</td>
+      <td class="num rev">$167k</td>
+      <td class="num">1,380</td>
+      <td class="num">$121</td>
+      <td class="num">$130k</td>
+      <td class="num">$37k</td>
+      <td class="num">$6.10</td>
+      <td class="num"><span class="dim">—</span></td>
+    </tr><tr>
+      <td class="rank">20</td>
+      <td class="num rev">$166k</td>
+      <td class="num">2,080</td>
+      <td class="num">$80</td>
+      <td class="num">$108k</td>
+      <td class="num">$55k</td>
+      <td class="num">$3.10</td>
+      <td class="num">3.4%</td>
+    </tr><tr>
+      <td class="rank">21</td>
+      <td class="num rev">$161k</td>
+      <td class="num">2,900</td>
+      <td class="num">$56</td>
+      <td class="num">$83k</td>
+      <td class="num">$79k</td>
+      <td class="num">$1.66</td>
+      <td class="num"><span class="dim">—</span></td>
+    </tr><tr>
+      <td class="rank">22</td>
+      <td class="num rev">$160k</td>
+      <td class="num">2,650</td>
+      <td class="num">$60</td>
+      <td class="num">$126k</td>
+      <td class="num">$32k</td>
+      <td class="num">$3.60</td>
+      <td class="num"><span class="dim">—</span></td>
+    </tr><tr>
+      <td class="rank">23</td>
+      <td class="num rev">$138k</td>
+      <td class="num">1,220</td>
+      <td class="num">$113</td>
+      <td class="num">$115k</td>
+      <td class="num">$19k</td>
+      <td class="num">$5.83</td>
+      <td class="num">8.3%</td>
+    </tr><tr>
+      <td class="rank">24</td>
+      <td class="num rev">$126k</td>
+      <td class="num">1,120</td>
+      <td class="num">$112</td>
+      <td class="num">$99k</td>
+      <td class="num">$27k</td>
+      <td class="num">$10.85</td>
+      <td class="num"><span class="dim">—</span></td>
+    </tr><tr>
+      <td class="rank">25</td>
+      <td class="num rev">$125k</td>
+      <td class="num">2,170</td>
+      <td class="num">$58</td>
+      <td class="num">$69k</td>
+      <td class="num">$51k</td>
+      <td class="num">$2.53</td>
+      <td class="num">4.6%</td>
+    </tr><tr>
+      <td class="rank">26</td>
+      <td class="num rev">$115k</td>
+      <td class="num">2,860</td>
+      <td class="num">$40</td>
+      <td class="num">$103k</td>
+      <td class="num">$9k</td>
+      <td class="num">$2.54</td>
+      <td class="num">3.8%</td>
+    </tr><tr>
+      <td class="rank">27</td>
+      <td class="num rev">$113k</td>
+      <td class="num">1,560</td>
+      <td class="num">$73</td>
+      <td class="num">$87k</td>
+      <td class="num">$25k</td>
+      <td class="num">$1.77</td>
+      <td class="num">1.5%</td>
+    </tr><tr>
+      <td class="rank">28</td>
+      <td class="num rev">$110k</td>
+      <td class="num">1,370</td>
+      <td class="num">$80</td>
+      <td class="num">$87k</td>
+      <td class="num">$20k</td>
+      <td class="num">$3.81</td>
+      <td class="num">2.9%</td>
+    </tr><tr>
+      <td class="rank">29</td>
+      <td class="num rev">$110k</td>
+      <td class="num">1,530</td>
+      <td class="num">$72</td>
+      <td class="num">$94k</td>
+      <td class="num">$13k</td>
+      <td class="num">$5.97</td>
+      <td class="num">11.3%</td>
+    </tr><tr>
+      <td class="rank">30</td>
+      <td class="num rev">$101k</td>
+      <td class="num">2,060</td>
+      <td class="num">$49</td>
+      <td class="num">$84k</td>
+      <td class="num">$17k</td>
+      <td class="num">$3.35</td>
+      <td class="num">7.6%</td>
+    </tr>
+    </tbody>
+  </table>
+  </div>
+
+  <h2>How a 30-day test works</h2>
+  <ol>
+    <li><b>Connect Shopify.</b> Zobi reads checkouts and orders from your store. Nothing changes on your site.</li>
+    <li><b>Start with abandoned checkouts.</b> That is 71% of the money on this page and the cleanest thing to measure. Same offer you already use in email, so the comparison is the conversation, not a bigger discount.</li>
+    <li><b>Read it in your own Shopify.</b> Every order Zobi claims is an order in your admin, tied to a conversation you can open and read. Judge it on revenue per shopper texted and opt-out rate against the numbers above.</li>
+  </ol>
+  <div class="cta">Reply with your Shopify store and we will set the test up.</div>
+
+  <footer>Revenue is Shopify order value from conversations Zobi ran, in USD, 24 September to 24 October 2026. Figures are rounded. Store share uses the store’s own net sales in the same 30 days, where our view covered the whole month. Opt-out is shoppers who asked to stop, out of all shoppers texted.</footer>
+</div>
+</body>
+</html>
